@@ -22,7 +22,7 @@ public class RecentUrlServiceImpl implements RecentUrlService {
 
     @Override
     public Page<RecentURL> getMostRecentUrls(int pageNo, int pageSize) {
-        Pageable page=PageRequest.of(pageNo,pageSize,Sort.by("dateSearched"));
+        Pageable page=PageRequest.of(pageNo,pageSize,Sort.by("dateSearched").descending());
         return repository.findAll(page);
     }
 
