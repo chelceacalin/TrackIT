@@ -1,0 +1,8 @@
+# Back End
+back_end\.idea
+**/.idea
+
+# Front End
+trackerfront\node_modules
+node_modules
+**/node_modules
