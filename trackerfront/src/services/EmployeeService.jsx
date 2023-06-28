@@ -38,7 +38,7 @@ export const deleteEmployeeById=(id)=>{
 }
 export const updateEmployeeById=(id,employee)=>{
   try {
-   return  axios.put(`EMPLOYEE_API_BASE_URL/${id}`, employee);
+   return  axios.put("http://localhost:8080/api/employees/"+id, employee);
   } catch (error) {
     console.error('Error updating employee:', error);
     throw error;

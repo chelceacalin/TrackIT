@@ -1,25 +1,40 @@
-import React from "react";
-import { HiOutlineUserCircle, HiChartPie } from "react-icons/hi";
-import HomeNavbar from "./HomeNavbar";
-import HomeRecentlyOpenedUrls from "./HomeRecentlyOpenedUrls";
+import React, { useEffect, useState, useContext } from 'react';
+import { HiOutlineUserCircle, HiChartPie } from 'react-icons/hi';
+import HomeNavbar from './HomeNavbar';
+import { getRecentsURLS } from '../../services/RecentlyOpenedUrlService';
+import HomeRecentlyOpenedUrls from './HomeRecentlyOpenedUrls';
+import { RouteTrackerContext } from '../RouteProvider/RouteTracker';
 export default function Home() {
-  const recentlyOpenedUrls = [
-    "http://localhost:3000/employeeList",
-    "https://example.com/page2",
-    "https://example.com/page3",
-  ];
+
+  const { visitedRoutes } = useContext(RouteTrackerContext);
+  //console.log(visitedRoutes);
+
+  const [recentlyOpenedUrls, setRecentlyOpenedUrls] = useState([]);
+
+  useEffect(() => {
+    const loadUrls = async () => {
+      try {
+        const mostRecent = await getRecentsURLS();
+        setRecentlyOpenedUrls(mostRecent.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    loadUrls();
+  }, []);
 
   const employees = [
-    { id: 1, name: "Employee 1" },
-    { id: 2, name: "Employee 2" },
-    { id: 3, name: "Employee 3" },
-    { id: 4, name: "Employee 4" },
+    { id: 1, name: 'Employee 1' },
+    { id: 2, name: 'Employee 2' },
+    { id: 3, name: 'Employee 3' },
+    { id: 4, name: 'Employee 4' },
     // Add more employees as needed
   ];
 
   return (
     <div>
-      <HomeNavbar/>
+      <HomeNavbar />
       {/* Content */}
       <div className="grid grid-cols-2 h-screen gap-4">
         <div className="bg-white p-4">
@@ -27,9 +42,7 @@ export default function Home() {
           <div className="bg-gray-100 p-4 rounded-lg h-full flex items-center justify-center">
             <div className="bg-gray-200 p-4 rounded-lg">
               <HiChartPie className="text-gray-500 w-16 h-16 mx-auto" />
-              <p className="text-gray-500 text-sm text-center mt-2">
-                Pie Chart
-              </p>
+              <p className="text-gray-500 text-sm text-center mt-2">Pie Chart</p>
             </div>
           </div>
         </div>
@@ -40,11 +53,7 @@ export default function Home() {
             <h2 className="text-gray-600 text-lg mb-2">Recently Opened URLs</h2>
             <ul className="list-disc pl-6 text-gray-500">
               {recentlyOpenedUrls.map((url, index) => (
-                <HomeRecentlyOpenedUrls
-                  key={index}
-                  className="text-sm"
-                  recentlyOpenedUrl={url}
-                />
+                <HomeRecentlyOpenedUrls key={index} className="text-sm" recentlyOpenedUrl={url} />
               ))}
             </ul>
           </div>

@@ -6,22 +6,26 @@ import UpdateEmployee from './components/Employees/UpdateEmployee';
 import Home from './components/Home/Home';
 import Inbox from './components/Inbox/Inbox';
 import Sidebar from './components/Sidebar/Sidebar';
-import HomeNavbar from './components/Home/HomeNavbar';
+import { RouteTrackerProvider } from './components/RouteProvider/RouteTracker';
+
+
 export default function App() {
   return (
     <Router>
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
-        <div style={{ flex: '1' }}>
-          <Routes>
-            <Route index path="/" element={<Home />} />
-            <Route path="/employeeList" element={<Employeelist />} />
-            <Route path="/addEmployee" element={<AddEmployee />} />
-            <Route path="/inbox" element={<Inbox />} />
-            <Route path="/updateEmployee/:id" element={<UpdateEmployee />} />
-          </Routes>
+      <RouteTrackerProvider>
+        <div style={{ display: 'flex' }}>
+          <Sidebar />
+          <div style={{ flex: '1' }}>
+            <Routes>
+              <Route index path="/" element={<Home />} />
+              <Route path="/employeeList" element={<Employeelist />} />
+              <Route path="/addEmployee" element={<AddEmployee />} />
+              <Route path="/inbox" element={<Inbox />} />
+              <Route path="/updateEmployee/:id" element={<UpdateEmployee />} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </RouteTrackerProvider>
     </Router>
   );
 }

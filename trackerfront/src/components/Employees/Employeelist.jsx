@@ -41,8 +41,11 @@ function EmployeeList() {
   };
 
   const updateEmployeeFromList = (id) => {
-    navigate('/updateEmployee/' + id);
+    const trimmedId = String(id).replace('#', ''); // Convert id to string and remove '#'
+  const url = `/updateEmployee/${trimmedId}`;
+  window.location.href = url;
   };
+  
 
   return (
     <>
