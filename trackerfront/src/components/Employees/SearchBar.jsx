@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getEmployeesByEmail } from '../services/EmployeeService';
+import { getEmployeesByEmail } from '../../services/EmployeeService';
 import { useNavigate } from 'react-router-dom';
 export default function SearchBar() {
   

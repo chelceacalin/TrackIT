@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { getEmployeeByid } from "../services/EmployeeService";
+import { getEmployeeByid } from  '../../services/EmployeeService';
 import { useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 function UpdateEmployee() {

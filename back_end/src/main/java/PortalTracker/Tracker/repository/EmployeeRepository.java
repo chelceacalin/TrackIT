@@ -13,6 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     Optional<Employee> findEmployeeById(int id);
 
-    @Query("select e from Employee e where e.email LIKE %?1%")
+    @Query("select e from Employee e where e.email LIKE %?1% or e.firstName like %?1%")
     <T> List<T> searchEmployeesByEmail(String email);
 }

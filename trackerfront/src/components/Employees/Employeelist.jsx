@@ -1,71 +1,70 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getEmployeeFunc, deleteEmployeeById } from "../services/EmployeeService";
-import Employee from "./Employee";
-import Pagination from "./Pagination";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getEmployeeFunc,deleteEmployeeById } from '../../services/EmployeeService';
+import Employee from './Employee';
+import Pagination from './Pagination';
 import SearchBar from './SearchBar';
-
-function Employeelist() {
+import HomeNavbar from '../Home/HomeNavbar';
+function EmployeeList() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState([]);
 
-  {/* Pagination */}
-  const [currentPage, setCurrentPage] = useState(1)
-  const [employesPerPage, setEmployeesPerPage] = useState(4)
-  const lastPostIndex = currentPage * employesPerPage;
-  const firstPostIndex = lastPostIndex - employesPerPage;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage, setEmployeesPerPage] = useState(4);
+  const lastPostIndex = currentPage * employeesPerPage;
+  const firstPostIndex = lastPostIndex - employeesPerPage;
   const currentEmployees = employees.slice(firstPostIndex, lastPostIndex);
 
   useEffect(() => {
-    let response;
     const fetchData = async () => {
       setLoading(true);
       try {
-        response = await getEmployeeFunc();
+        const response = await getEmployeeFunc();
         setEmployees(response.data);
       } catch (err) {
         console.log(err);
       }
       setLoading(false);
-    }
+    };
     fetchData();
     console.log(employees);
-  }, [])
+  }, []);
 
-  let delEmployee = (e) => {
+  const delEmployee = (e) => {
     try {
       deleteEmployeeById(e);
     } catch (e) {
       console.log(e);
     }
     window.location.reload();
-  }
+  };
 
-  let updateEmployeeFromList = (id) => {
-    navigate("/updateEmployee/" + id);
-  }
+  const updateEmployeeFromList = (id) => {
+    navigate('/updateEmployee/' + id);
+  };
 
   return (
     <>
-     <div className="flex justify-between items-center"> {/* Parent container */}
+    <HomeNavbar/>
+      <div className="justify-between md:flex-row"> 
         <button
           onClick={(e) => {
-            navigate("/addEmployee");
+            navigate('/addEmployee');
           }}
           className="mt-5 ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Add Employee
         </button>
-        <div className="flex justify-center flex-grow"> {/* Search bar container */}
+        <div className="flex flex-grow align-middle justify-center"> {/* Search bar container */}
           <SearchBar className="align-middle" />
         </div>
       </div>
 
-      <div className="flex shadow border-b">
-        <table className="min-w-full mt-10">
+      <div className="flex shadow border-b mt-5">
+        <table className="min-w-full">
           <thead className="bg-gray-50">
-            <tr>
+            <tr className=''>
               <th className="text-center font-medium text-gray-500 uppercase tracking-wider py-3 px-6">
                 First Name
               </th>
@@ -99,7 +98,7 @@ function Employeelist() {
 
       <Pagination
         totalEmployees={employees.length}
-        employesPerPage={employesPerPage}
+        employesPerPage={employeesPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
@@ -107,4 +106,4 @@ function Employeelist() {
   );
 }
 
-export default Employeelist;
+export default EmployeeList;
