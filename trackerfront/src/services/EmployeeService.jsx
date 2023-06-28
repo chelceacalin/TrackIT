@@ -53,3 +53,7 @@ export const updateEmployeeById=(id,employee)=>{
     console.log(err);
   });
 }
+
+export const getEmployeesByEmail=(email)=>{
+  return axios.get("http://localhost:8080/api/employeesByMail?email="+email)
+}
