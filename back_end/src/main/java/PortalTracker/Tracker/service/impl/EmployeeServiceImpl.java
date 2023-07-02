@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +23,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeRepository repository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository repository){
-        this.repository=repository;
+    public EmployeeServiceImpl(EmployeeRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -31,17 +34,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Optional<Employee> findById(int id) throws Exception {
-        Optional<Employee> emp=repository.findById(id);
-        if(emp.isPresent()){
+        Optional<Employee> emp = repository.findById(id);
+        if (emp.isPresent()) {
             return emp;
-        }
-        else
+        } else
             throw new Exception("Employee not found");
     }
 
     @Override
     public void deleteEmployee(int id) {
-         repository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Override
@@ -51,9 +53,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployee(int id, Employee employee) {
-        Optional<Employee> optionalEmployee =repository.findEmployeeById(id);
-        if(optionalEmployee .isPresent()) {
-            Employee existingEmployee=optionalEmployee.get();
+        Optional<Employee> optionalEmployee = repository.findEmployeeById(id);
+        if (optionalEmployee.isPresent()) {
+            Employee existingEmployee = optionalEmployee.get();
             existingEmployee.setFirstName(employee.getFirstName());
             existingEmployee.setLastName(employee.getLastName());
             return repository.save(existingEmployee);
@@ -64,13 +66,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Page<Employee> findAllByPage(int pageNo, int pageSize) {
-        Pageable page=PageRequest.of(pageNo,pageSize);
+        Pageable page = PageRequest.of(pageNo, pageSize);
         return repository.findAll(page);
     }
 
     @Override
     public <T> List<T> searchEmployeesByEmail(String email) {
         return repository.searchEmployeesByEmail(email);
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                Optional<Employee> emp = repository.findEmployeeByEmail(username);
+                if (emp.isPresent())
+                    return emp.get();
+                else
+                    throw new UsernameNotFoundException("User not found");
+            }
+        };
     }
 
 

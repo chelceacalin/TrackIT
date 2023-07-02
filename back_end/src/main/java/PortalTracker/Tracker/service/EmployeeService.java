@@ -3,6 +3,7 @@ package PortalTracker.Tracker.service;
 import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.service.impl.EmployeeServiceImpl;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +21,6 @@ public interface EmployeeService {
     Page<Employee> findAllByPage(int pageNo,int pageSize);
 
     <T> List<T> searchEmployeesByEmail(String email);
+
+    UserDetailsService userDetailsService();
 }

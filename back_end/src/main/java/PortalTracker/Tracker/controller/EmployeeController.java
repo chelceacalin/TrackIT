@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class EmployeeController {
 
     EmployeeService service;
@@ -19,15 +19,6 @@ public class EmployeeController {
     public EmployeeController(EmployeeService service){
         this.service=service;
     }
-
-
-
-//
-//    @GetMapping("/employees")
-//    public List<Employee> findAll(){
-//        return service.findAll();
-//    }
-
 
     @PostMapping("/employees")
     public Employee createEmployee(@RequestBody Employee employee){

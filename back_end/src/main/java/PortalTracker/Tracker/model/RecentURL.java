@@ -54,4 +54,17 @@ public class RecentURL {
     public void setDateSearched(LocalDateTime dateSearched) {
         this.dateSearched = dateSearched;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name ="employee_id",referencedColumnName ="id" )
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }
