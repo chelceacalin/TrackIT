@@ -9,7 +9,7 @@ export default function Sidebar() {
     <div className="bg-gray-900 h-screen w-28 flex flex-col items-center justify-between">
       <div className="mt-8">
         <SidebarItem icon={HiChartPie} text="Dashboard"  onClick={()=>{
-          navigate('/')
+          navigate('/home')
         }}/>
         <SidebarItem
           icon={HiUser}

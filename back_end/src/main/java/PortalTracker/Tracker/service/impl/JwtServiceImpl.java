@@ -19,14 +19,17 @@ import java.util.function.Function;
 public class JwtServiceImpl implements JwtService {
     @org.springframework.beans.factory.annotation.Value("${token.signing.key}")
     private String jwtSigningKey;
+
     @Override
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
     @Override
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
+
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
@@ -39,10 +42,13 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 10*60*50))
-                .signWith(SignatureAlgorithm.HS256, getSigningKey()).compact();
+                .setExpiration(new Date(Long.MAX_VALUE)) // Set to a far-future date
+                .signWith(SignatureAlgorithm.HS256, getSigningKey())
+                .compact();
     }
 
     private boolean isTokenExpired(String token) {
@@ -54,14 +60,11 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(getSigningKey()).parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(getSigningKey()).parseClaimsJws(token).getBody();
     }
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }
-

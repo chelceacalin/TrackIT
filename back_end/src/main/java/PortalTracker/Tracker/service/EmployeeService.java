@@ -22,5 +22,6 @@ public interface EmployeeService {
 
     <T> List<T> searchEmployeesByEmail(String email);
 
+    Employee getEmpByEmail(String email);
     UserDetailsService userDetailsService();
 }

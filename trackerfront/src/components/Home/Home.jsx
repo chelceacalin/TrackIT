@@ -1,28 +1,43 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { HiOutlineUserCircle, HiChartPie } from 'react-icons/hi';
 import HomeNavbar from './HomeNavbar';
-import { getRecentsURLS } from '../../services/RecentlyOpenedUrlService';
+import axios from 'axios';
 import HomeRecentlyOpenedUrls from './HomeRecentlyOpenedUrls';
 import { RouteTrackerContext } from '../RouteProvider/RouteTracker';
 export default function Home() {
 
-  const { visitedRoutes } = useContext(RouteTrackerContext);
-  //console.log(visitedRoutes);
-
+  //const { visitedRoutes } = useContext(RouteTrackerContext);
   const [recentlyOpenedUrls, setRecentlyOpenedUrls] = useState([]);
+  const[token,setToken]=useState('')
 
+
+
+  const getRecentsURLS = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get("http://localhost:8080/api/auth/recentlyOpenedUrl?pageNo=0&pageSize=10000", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      console.log(response.data);
+
+      setRecentlyOpenedUrls(response.data.slice(0,6)); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   useEffect(() => {
-    const loadUrls = async () => {
-      try {
-        const mostRecent = await getRecentsURLS();
-        setRecentlyOpenedUrls(mostRecent.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    loadUrls();
+    const storedToken = localStorage.getItem('token');
+    setToken(storedToken);
+    console.log("storedToken", storedToken);
+  
+    getRecentsURLS();
   }, []);
+  
+  
+
+
+
 
   const employees = [
     { id: 1, name: 'Employee 1' },
@@ -33,6 +48,7 @@ export default function Home() {
   ];
 
   return (
+    
     <div>
       <HomeNavbar />
       {/* Content */}

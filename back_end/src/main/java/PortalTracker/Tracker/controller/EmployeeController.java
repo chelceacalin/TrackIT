@@ -61,4 +61,10 @@ public class EmployeeController {
     public List<Employee> searchEmployeeByEmail(@RequestParam("email") String email){
         return service.searchEmployeesByEmail(email);
     }
+
+    @GetMapping("/employeeByEmail")
+    public Employee findByMailEmp(@RequestParam("email") String email) {
+        return service.getEmpByEmail(email);
+    }
+
 }

@@ -1,32 +1,36 @@
 package PortalTracker.Tracker.service.impl;
 
-import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.model.RecentURL;
 import PortalTracker.Tracker.repository.RecentUrlRepository;
 import PortalTracker.Tracker.service.RecentUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RecentUrlServiceImpl implements RecentUrlService {
-    RecentUrlRepository repository;
+    private final RecentUrlRepository repository;
 
     @Autowired
-    public RecentUrlServiceImpl(RecentUrlRepository repository){
-        this.repository=repository;
+    public RecentUrlServiceImpl(RecentUrlRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Page<RecentURL> getMostRecentUrls(int pageNo, int pageSize) {
-        Pageable page=PageRequest.of(pageNo,pageSize,Sort.by("dateSearched").descending());
-        return repository.findAll(page);
+    public Page<RecentURL> findRecentURLsByEmployeeId(Integer employeeId, Pageable pageable) {
+        return repository.findRecentURLSByEmployeeId(employeeId,pageable);
     }
 
-    public RecentURL createRecentUrl(RecentURL recentURL){
+    @Override
+    public RecentURL createRecentUrl(RecentURL recentURL) {
         return repository.save(recentURL);
+    }
+
+    @Override
+    public List<RecentURL> getAllRecentURLsByEmployeeId(int employeeId) {
+        return repository.findAllByEmployeeId(employeeId);
     }
 }

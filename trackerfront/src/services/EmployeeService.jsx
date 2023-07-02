@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EMPLOYEE_API_BASE_URL = 'http://localhost:8080/api/employees';
+const EMPLOYEE_API_BASE_URL = 'http://localhost:8080/api/auth/employees';
 
 export const saveEmployeeFunct = (employee) => {
   return axios.post(EMPLOYEE_API_BASE_URL, employee)
@@ -38,7 +38,7 @@ export const deleteEmployeeById=(id)=>{
 }
 export const updateEmployeeById=(id,employee)=>{
   try {
-   return  axios.put("http://localhost:8080/api/employees/"+id, employee);
+   return  axios.put("http://localhost:8080/api/auth/employees/"+id, employee);
   } catch (error) {
     console.error('Error updating employee:', error);
     throw error;
@@ -53,6 +53,23 @@ export const updateEmployeeById=(id,employee)=>{
     console.log(err);
   });
 }
+
+export const getEmployeeByEMAIL = (email) => {
+  const token = localStorage.getItem('token');
+  
+  return axios.get(`http://localhost:8080/api/auth/employeeByEmail?email=${email}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(res => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 
 export const getEmployeesByEmail=(email)=>{
   return axios.get("http://localhost:8080/api/employeesByMail?email="+email)

@@ -1,5 +1,6 @@
 package PortalTracker.Tracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -67,4 +68,8 @@ public class Employee implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @OneToMany(mappedBy = "employee")
+            @JsonIgnore
+    List<RecentURL> recentURLS;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import {SingIn} from '../../services/AuthenticationService';
+import {getEmployeeByEMAIL} from '../../services/EmployeeService';
 
 
 export default function LogIn() {
@@ -10,25 +11,33 @@ export default function LogIn() {
 
   let handleSubmitSignIn = () => {
     console.log(email, password);
-
-    let body={
-        email:email,
-        password:password
-    }
-
-    SingIn(body).then(res => {
+  
+    let body = {
+      email: email,
+      password: password
+    };
+  
+    SingIn(body)
+      .then(res => {
         console.log(res);
-        if(res.data.status === 200){
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-            window.location.href = "/home";
-        }else{
-            alert(res.data.message);
-        }
-    }).catch(err => {
+        localStorage.setItem("token", res.data.token);
+  
+        getEmployeeByEMAIL(email)
+          .then(emp => {
+            console.log("employee", emp.data);
+            localStorage.setItem("user",emp.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+  
+        window.location.href = "/home";
+      })
+      .catch(err => {
         console.log(err);
-    });
+      });
   };
+
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
