@@ -1,29 +1,53 @@
 import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { SignUpFct } from '../../services/AuthenticationService';
+import { SignUpFct,SingIn } from '../../services/AuthenticationService';
 import { useNavigate } from "react-router-dom";
-
+import { getEmployeeByEMAIL } from "../../services/EmployeeService";
 export default function SignUp() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const handleSubmitSignUp = () => {
     const userData = {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      password: password
+      password: password,
     };
 
     SignUpFct(userData)
-      .then(res => {
-        console.log(res);
-        navigate("/home");
+      .then(() => {
+        const loginData = {
+          email: email,
+          password: password,
+        };
+
+        getEmployeeByEMAIL(email)
+          .then((emp) => {
+            if (emp.data) {
+              SingIn(loginData)
+                .then((res) => {
+                  console.log(res.data);
+                  localStorage.setItem("token", res.data.token);
+                  localStorage.setItem("user", JSON.stringify(emp.data));
+                  console.log(emp.data);
+                  window.location.href=  "/home";
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              console.log("Employee not found");
+              alert("Employee not found");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };

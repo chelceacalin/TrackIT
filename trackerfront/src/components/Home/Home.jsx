@@ -22,6 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("getEmployeeFunc")
         const response = await getEmployeeFunc();
         setEmployees(response.data);
       } catch (err) {
@@ -35,7 +36,7 @@ export default function Home() {
   const getRecentsURLS = async (UserID) => {
     try {
       token = localStorage.getItem('token');
-
+      console.log("getRecentURLS");
       const response = await axios.get(`http://localhost:8080/api/auth/recentlyOpenedURL/${UserID}/recentURLs`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -47,13 +48,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
+   const storedToken = localStorage.getItem('token');
+    console.log("token stored",storedToken);
 
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setUser(storedUser);
-    getRecentsURLS(storedUser.id);
-
+    console.log("user stored",storedUser);
+   getRecentsURLS(storedUser.id);
     const decodedToken = jwtDecode(storedToken);
     const expiryDate = new Date(decodedToken.exp * 1000);
 
@@ -65,7 +66,6 @@ export default function Home() {
 
       if (remainingTime <= 0) {
         clearInterval(interval);
-        // Additional logic for handling expired session (e.g., logout)
       }
     }, 1000);
 
@@ -121,7 +121,7 @@ export default function Home() {
         <div className="mb-24 mt-4 bg-blue-500 flex items-center justify-center">
           {/* Lower Right */}
           <p className="text-white text-xl">
-            Session Expiry: {timeRemaining} seconds
+            Session Expiry: 12433 seconds
           </p>
         </div>
       </div>

@@ -9,7 +9,6 @@ export default function LogIn() {
   const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   let handleSubmitSignIn = () => {
     console.log(email, password);
   
@@ -18,27 +17,30 @@ export default function LogIn() {
       password: password
     };
   
-    SingIn(body)
-    .then(res => {
-      console.log(res);
-      localStorage.setItem("token", res.data.token);
-    
-      getEmployeeByEMAIL(email)
-        .then(emp => {
-          console.log("employee", emp.data);
-          localStorage.setItem("user", JSON.stringify(emp.data));
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    
-      window.location.href = "/home";
-    })
+    getEmployeeByEMAIL(email)
+      .then(emp => {
+        console.log("employee", emp.data);
+        if (emp.data) {
+          SingIn(body)
+            .then(res => {
+              console.log(res);
+              localStorage.setItem("token", res.data.token);
+              localStorage.setItem("user", JSON.stringify(emp.data));
+              window.location.href = "/home";
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else {
+          console.log("Employee not found");
+          // Handle case when employee is not found
+        }
+      })
       .catch(err => {
         console.log(err);
       });
   };
-
+  
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
