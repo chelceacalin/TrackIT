@@ -8,7 +8,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import { RouteTrackerProvider } from './components/RouteProvider/RouteTracker';
 import LogIn from './components/Authentication/LogIn';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-
+import SignUp from './components/Authentication/SignUp';
 function App() {
   return (
     <Router>
@@ -18,13 +18,14 @@ function App() {
     </Router>
   );
 }
-
 function MainContent() {
   const location = useLocation();
 
+  const isLoginOrSignUp = location.pathname === '/' || location.pathname === '/signUp';
+
   return (
     <div style={{ display: 'flex' }}>
-      {location.pathname !== '/' && <Sidebar />} {/* Render the Sidebar only if the current path is not the login route */}
+      {!isLoginOrSignUp && <Sidebar />} {/* Render the Sidebar only if the current path is not the login or sign-up route */}
       <div style={{ flex: '1' }}>
         <Routes>
           <Route index path="/" element={<LogIn />} />
@@ -32,11 +33,13 @@ function MainContent() {
           <Route path="/employeeList" element={<Employeelist />} />
           <Route path="/addEmployee" element={<AddEmployee />} />
           <Route path="/inbox" element={<Inbox />} />
+          <Route path="/signUp" element={<SignUp />} />
           <Route path="/updateEmployee/:id" element={<UpdateEmployee />} />
         </Routes>
       </div>
     </div>
   );
 }
+
 
 export default App;

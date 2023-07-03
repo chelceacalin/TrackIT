@@ -9,14 +9,14 @@ export const RouteTrackerProvider = ({ children }) => {
   const [visitedRoutes, setVisitedRoutes] = useState([]);
 
   useEffect(() => {
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/home') {
       setVisitedRoutes((prevRoutes) => [...prevRoutes, location.pathname]);
     }
   }, [location]);
 
   useEffect(() => {
     if (visitedRoutes.length > 0) {
-      saveVisitedRoutesToDatabase();
+    saveVisitedRoutesToDatabase();
     }
   }, [visitedRoutes]);
 

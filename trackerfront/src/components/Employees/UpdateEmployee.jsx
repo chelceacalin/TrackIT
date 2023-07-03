@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { updateEmployeeById, getEmployeeByid } from '../../services/EmployeeService';
+import {
+  updateEmployeeById,
+  getEmployeeByid,
+} from "../../services/EmployeeService";
 import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateEmployee() {
@@ -18,7 +21,7 @@ function UpdateEmployee() {
 
   useEffect(() => {
     const retrieveEmployee = async (idEmp) => {
-      const trimmedId = idEmp.replace('#', '');
+      const trimmedId = idEmp.replace("#", "");
       const emp = await getEmployeeByid(trimmedId);
       setEmployee(emp.data);
     };
@@ -78,11 +81,13 @@ function UpdateEmployee() {
 
           <div className="items-center justify-center h-14 w-full my-10 ">
             <button
+              onClick={() => navigate("/employeeList")}
               type="submit"
               className="m-auto bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4 w-24"
             >
               Update
             </button>
+
             <button
               onClick={() => navigate("/employeeList")}
               className="m-auto bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded w-24"
@@ -94,10 +99,7 @@ function UpdateEmployee() {
 
         <footer className="align-baseline bg-gray-100 text-center py-2 text-gray-600 text-sm font-normal">
           <p className="text-gray-600 text-sm font-normal">
-            <a
-              href=""
-              onClick={() => navigate("/employeeList")}
-            >
+            <a href="" onClick={() => navigate("/employeeList")}>
               Back To Employee List
             </a>
           </p>

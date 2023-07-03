@@ -6,7 +6,7 @@ export default function HomeRecentlyOpenedUrls({ recentlyOpenedUrl }) {
 
   const handleClick = () => {
     const extractedPath = recentlyOpenedUrl.path.split('/').pop();
-    navigate(extractedPath);
+    window.location.href =extractedPath;
   };
 
 

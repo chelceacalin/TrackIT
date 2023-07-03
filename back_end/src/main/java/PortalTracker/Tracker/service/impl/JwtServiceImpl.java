@@ -42,14 +42,17 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        long expirationTimeMillis = System.currentTimeMillis() + (100 * 50 * 50 * 50L); // Adjust the expiration time as needed
+
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(Long.MAX_VALUE)) // Set to a far-future date
+                .setExpiration(new Date(expirationTimeMillis))
                 .signWith(SignatureAlgorithm.HS256, getSigningKey())
                 .compact();
     }
+
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

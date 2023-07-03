@@ -72,5 +72,5 @@ export const getEmployeeByEMAIL = (email) => {
 
 
 export const getEmployeesByEmail=(email)=>{
-  return axios.get("http://localhost:8080/api/employeesByMail?email="+email)
+  return axios.get("http://localhost:8080/api/auth/employeesByMail?email="+email)
 }

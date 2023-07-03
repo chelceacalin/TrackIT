@@ -1,10 +1,20 @@
 import axios from 'axios';
 
-const RECENT_URL_BASE_URL = 'http://localhost:8080/api/auth/recentlyOpenedUrl';
+const RECENT_URL_BASE_URL = 'http://localhost:8080/api/auth/recentlyOpenedURL';
 
 export const saveRecentURL = (URL) => {
+  const user = JSON.parse(localStorage.getItem('user')); // Retrieve the user object from localStorage
+
   let object = {
     path: URL,
+    employee: {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      role: user.role
+    }
   };
 
   const token = localStorage.getItem('token'); // Retrieve the authentication token from localStorage
@@ -22,15 +32,3 @@ export const saveRecentURL = (URL) => {
       console.log(err);
     });
 };
-
-
-export const getRecentsURLS=()=>{
-
-  return axios.get(RECENT_URL_BASE_URL+"?pageNo=0&pageSize=4").then(res => {
-    return res;
-  })
-  .catch((err)=>{
-    console.log(err);
-  });
-}
-

@@ -21,7 +21,7 @@ export default function Sidebar() {
         }} />
       </div>
       <div className="mb-8">
-        <SidebarItem icon={HiLogout} text="Log Out" />
+        <SidebarItem icon={HiLogout} text="Log Out"  onClick={() => navigate('/')}/>
       </div>
     </div>
   );

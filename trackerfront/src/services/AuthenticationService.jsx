@@ -13,3 +13,17 @@ export const SingIn = (employee) => {
     alert('Login failed')
   });
 };
+
+
+
+export const SignUpFct=(employee) => {
+  return axios.post(BASE_AUTH_URL+"/signup", employee)
+  .then(res => {
+  //  console.log(res);
+    return res;
+  })
+  .catch((err)=>{
+    console.log(err);
+    alert('Login failed')
+  });
+};
