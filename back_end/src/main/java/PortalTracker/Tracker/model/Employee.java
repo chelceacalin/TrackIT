@@ -70,6 +70,6 @@ public class Employee implements UserDetails {
     }
 
     @OneToMany(mappedBy = "employee")
-            @JsonIgnore
+    @JsonIgnore
     List<RecentURL> recentURLS;
 }

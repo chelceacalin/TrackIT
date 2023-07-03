@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public interface RecentUrlRepository extends JpaRepository<RecentURL, Integer> {
-
-    Page<RecentURL> findRecentURLSByEmployeeId(@Param("employeeId") int employeeId, Pageable pageable);
-    List<RecentURL> findAllByEmployeeId(int employeeId);
+        @Query("select e from RecentURL e where e.employee.id=:id")
+        Page<RecentURL> findRecentURLSByEmployeeId(int id, Pageable pageable);
 }

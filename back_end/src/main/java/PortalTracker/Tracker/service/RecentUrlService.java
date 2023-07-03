@@ -9,8 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RecentUrlService {
-    Page<RecentURL> findRecentURLsByEmployeeId(Integer employeeId, Pageable pageable);
 
-    RecentURL createRecentUrl(RecentURL recentURL);
-    List<RecentURL> getAllRecentURLsByEmployeeId(int employeeId);
+    RecentURL findUrlById(int id);
+    RecentURL createRecentURL(RecentURL recentURL);
+
+     Page<RecentURL> findURLSByEmpId(int empID, int pageNo, int pageSize);
 }

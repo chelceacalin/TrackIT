@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -27,9 +29,7 @@ public class RecentURL {
     }
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-
-
+    @JoinColumn(name = "fk_employee_id",referencedColumnName = "id")
+    Employee employee;
 
 }
