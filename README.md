@@ -3,7 +3,10 @@
 
 Functionalities so far:
 <pre>
-  - In the dashboard, managers can see the 4 most recent pages visited, that we track within the whole application
+  - JWT authentication and session management, ability to sign in and sign up
+  = Need to be logged in to perform requests
+  - In the dashboard, employees can see their most recent urls that they used within the application
+  - Also, they can see their session expiry date and the 3 most recent users that joined
   - Ability to search employees with suggestions based on their name or email address
   - Pagination to search through employees
   - Creating, Updating, Deleting, Reading

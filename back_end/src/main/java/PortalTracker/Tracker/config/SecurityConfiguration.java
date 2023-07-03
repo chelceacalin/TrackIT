@@ -26,31 +26,31 @@ public class SecurityConfiguration {
     private final EmployeeService employeeService;
 
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(AbstractHttpConfigurer::disable)
-//                .authorizeRequests(request ->
-//                        request.requestMatchers("/api/auth/signin").permitAll()
-//                                .requestMatchers("/api/auth/signup").permitAll()
-//                                .requestMatchers("/api/auth/**").authenticated()
-//                                .anyRequest().authenticated())
-//                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .cors(Customizer.withDefaults()); // Disable CORS
-//
-//        return http.build();
-//    }
-
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeRequests(request -> request.anyRequest().permitAll())
-            .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .cors(Customizer.withDefaults());
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(request ->
+                        request.requestMatchers("/api/auth/signin").permitAll()
+                                .requestMatchers("/api/auth/signup").permitAll()
+                                .requestMatchers("/api/auth/**").authenticated()
+                                .anyRequest().authenticated())
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors(Customizer.withDefaults()); // Disable CORS
 
-    return http.build();
-}
+        return http.build();
+    }
+
+//    @Bean
+//public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//    http.csrf(AbstractHttpConfigurer::disable)
+//            .authorizeRequests(request -> request.anyRequest().permitAll())
+//            .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//            .cors(Customizer.withDefaults());
+//
+//    return http.build();
+//}
 
     @Bean
     public PasswordEncoder passwordEncoder() {

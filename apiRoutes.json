@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "1416c65e-84f9-4c1c-8714-ab3d8c41e2cc",
+		"name": "Work",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27978641"
+	},
+	"item": [
+		{
+			"name": "Tracker System",
+			"item": [
+				{
+					"name": "Employee",
+					"item": [
+						{
+							"name": "Sign In/Up",
+							"item": [
+								{
+									"name": "Sign In",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "fun123",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "Mary",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\":\"123@yahoo.com\",\r\n    \"password\":\"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/auth/signin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"auth",
+												"signin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign Up",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Chelcea\",\r\n    \"email\":\"121@yahoo.com\",\r\n    \"password\":\"123\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/auth/signup",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get All Employees",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc4OTU0LCJleHAiOjE2ODgzOTE0NTR9.dPURdkHzHw3jQON1isDv-qWUnjUFZ3nQaEprAXgwks0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Chelcea\",\r\n    \"email\":\"alex@yahoo.com\",\r\n    \"password\":\"alex\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees?pageNo=0&pageSize=10000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "10000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Insert Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc5MTExLCJleHAiOjE2ODgzOTE2MTF9.2aM8klDxEp2RlT2hSdaYVpgaCIHuZF7vyn4Jid1vHLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Chelcea\",\r\n    \"email\":\"321321321@yahoo.com\",\r\n    \"password\": \"123\",\r\n    \"role\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc5MTExLCJleHAiOjE2ODgzOTE2MTF9.2aM8klDxEp2RlT2hSdaYVpgaCIHuZF7vyn4Jid1vHLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Single Employee",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Employees Pages",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc5MTExLCJleHAiOjE2ODgzOTE2MTF9.2aM8klDxEp2RlT2hSdaYVpgaCIHuZF7vyn4Jid1vHLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees?pageNo=0&pageSize=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees"
+									],
+									"query": [
+										{
+											"key": "pageNo",
+											"value": "0"
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Employees By Email",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc5MTExLCJleHAiOjE2ODgzOTE2MTF9.2aM8klDxEp2RlT2hSdaYVpgaCIHuZF7vyn4Jid1vHLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Chelcea\",\r\n    \"email\":\"alex@yahoo.com\",\r\n    \"password\":\"alex\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employeesByMail?email=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employeesByMail"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Employee By Id",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "fun123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Mary",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Rad2u\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employees/10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employees",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Employee By Email",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYWFhQHlhaG9vLmNvbSIsImlhdCI6MTY4ODMwODQyMSwiZXhwIjoxNjg4MzA4NzIxfQ.w7y1m75SLSxZGgu67aHxeE9fMRBoAtid329i3fGKtLY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\":\"Calin\",\r\n    \"lastName\":\"Chelcea\",\r\n    \"email\":\"alex@yahoo.com\",\r\n    \"password\":\"alex\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/employeeByEmail?email=aaaa@yahoo.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"employeeByEmail"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "aaaa@yahoo.com"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "RecentURL",
+					"item": [
+						{
+							"name": "Get URL BY ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc4OTU0LCJleHAiOjE2ODgzOTE0NTR9.dPURdkHzHw3jQON1isDv-qWUnjUFZ3nQaEprAXgwks0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/auth/recentlyOpenedURL/200",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"recentlyOpenedURL",
+										"200"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get URL BY EMPLOYEE ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc4OTU0LCJleHAiOjE2ODgzOTE0NTR9.dPURdkHzHw3jQON1isDv-qWUnjUFZ3nQaEprAXgwks0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/auth/recentlyOpenedURL/1/recentURLs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"recentlyOpenedURL",
+										"1",
+										"recentURLs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create URL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjNAeWFob28uY29tIiwiaWF0IjoxNjg4Mzc4OTU0LCJleHAiOjE2ODgzOTE0NTR9.dPURdkHzHw3jQON1isDv-qWUnjUFZ3nQaEprAXgwks0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"path\": \"/home2\",\r\n    \"employee\": {\r\n        \"id\": 1,\r\n        \"firstName\": \"Calin\",\r\n        \"lastName\": \"Chelcea\",\r\n        \"email\": \"123@yahoo.com\",\r\n        \"password\": \"123\",\r\n        \"role\": \"ADMIN\"\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/auth/recentlyOpenedURL",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"recentlyOpenedURL"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
