@@ -9,6 +9,7 @@ import { RouteTrackerProvider } from './components/RouteProvider/RouteTracker';
 import LogIn from './components/Authentication/LogIn';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import SignUp from './components/Authentication/SignUp';
+import ProfilePic from './components/Home/ProfilePic';
 function App() {
   return (
     <Router>
@@ -34,6 +35,7 @@ function MainContent() {
           <Route path="/addEmployee" element={<AddEmployee />} />
           <Route path="/inbox" element={<Inbox />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/home/:id/profilePic" element={<ProfilePic />} />
           <Route path="/updateEmployee/:id" element={<UpdateEmployee />} />
         </Routes>
       </div>

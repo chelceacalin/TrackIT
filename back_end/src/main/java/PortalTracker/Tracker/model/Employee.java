@@ -73,4 +73,7 @@ public class Employee implements UserDetails {
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     List<RecentURL> recentURLS;
+
+    @OneToOne(mappedBy = "employee")
+    ImageData imageData;
 }

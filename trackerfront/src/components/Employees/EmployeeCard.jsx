@@ -1,15 +1,39 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 const EmployeeCard = ({ employee }) => {
+  const [userAvatar, setUserAvatar] = useState('');
+  
+  
+  const fetchUserAvatar = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/auth/imagesByEmpId/${employee.id}`, {
+        responseType: 'blob', 
+      });
+
+      const blob = new Blob([response.data], { type: 'image/png' }); 
+      const avatarUrl = URL.createObjectURL(blob); 
+
+      setUserAvatar(avatarUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserAvatar();
+  }, []);
+
+
+
+  
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="flex items-center p-4">
-        <img
-        //   src={employee.image}
-        src="https://fastly.picsum.photos/id/874/200/300.jpg?hmac=rJgHohZZtli5gr1B42TQbIuoC-GrMDffD-Xukd2Grj8"
-          alt={employee.firstName}
-          className="w-12 h-12 rounded-full mr-4"
-        />
+      <img
+                src={userAvatar}
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full"
+              />
         <div>
           <h3 className="text-lg font-bold">{employee.firstName}</h3>
           <p className="text-sm text-gray-600">{employee.email}</p>

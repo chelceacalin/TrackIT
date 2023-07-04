@@ -7,6 +7,7 @@ import { RouteTrackerContext } from '../RouteProvider/RouteTracker';
 import { getEmployeeFunc } from '../../services/EmployeeService';
 import EmployeeCard from '../Employees/EmployeeCard';
 import jwtDecode from 'jwt-decode';
+import {getEmployeeByEMAIL} from '../../services/EmployeeService'
 
 export default function Home() {
   const { visitedRoutes } = useContext(RouteTrackerContext);
@@ -51,8 +52,14 @@ export default function Home() {
    const storedToken = localStorage.getItem('token');
     console.log("token stored",storedToken);
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    setUser(storedUser);
+    let storedUser = JSON.parse(localStorage.getItem('user'));
+
+    getEmployeeByEMAIL(storedUser.email).then((data)=>{
+     // console.log(data.data)
+    setUser(data.data);
+    localStorage.setItem("user", JSON.stringify(data.data));
+    })
+    storedUser = JSON.parse(localStorage.getItem('user'));
     console.log("user stored",storedUser);
    getRecentsURLS(storedUser.id);
     const decodedToken = jwtDecode(storedToken);
@@ -76,7 +83,7 @@ export default function Home() {
 
   return (
     <div>
-      <HomeNavbar firstName={user.firstName} lastName={user.lastName} />
+      <HomeNavbar firstName={user.firstName} lastName={user.lastName}  id={user.id}/>
       {/* Content */}
       <div className="grid grid-cols-2 h-screen gap-4">
         <div className="bg-white p-4">
@@ -112,7 +119,7 @@ export default function Home() {
             <h2 className="text-gray-600 text-lg ">Most recent Employees</h2>
             <ul className="list-disc text-gray-500">
               {emps.slice(0, 3).map((emp, index) => (
-                <EmployeeCard key={index} employee={emp} />
+                <EmployeeCard key={index} employee={emp}  />
               ))}
             </ul>
           </div>
