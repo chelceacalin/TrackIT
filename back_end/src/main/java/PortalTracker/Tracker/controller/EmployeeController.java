@@ -3,9 +3,13 @@ package PortalTracker.Tracker.controller;
 import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.model.ImageData;
+import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.EmployeeService;
+import PortalTracker.Tracker.specification.EmployeeSpecification;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +21,13 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class EmployeeController {
 
+    @Autowired
     EmployeeService service;
+    @Autowired
+    EmployeeRepository repository;
     @Autowired
     public EmployeeController(EmployeeService service){
         this.service=service;
@@ -89,4 +97,35 @@ public class EmployeeController {
         List<Employee> allEmployeesDynamicFilter = service.findAllEmployeesDynamicFilter(first, last, email, pass);
         return new ResponseEntity<>(allEmployeesDynamicFilter, HttpStatus.OK);
     }
+
+
+
+    // Dyanmic Filterning Specification
+    @GetMapping("/empsFilter")
+    public ResponseEntity<List<Employee>> filterEmployees(@RequestParam(required = false) String firstName,
+                                                          @RequestParam(required = false) List<String> firstNameIn,
+                                                          @RequestParam(required = false) Integer lastNameLengthGreaterThan) {
+
+        // Build the specifications based on the provided query parameters
+        Specification<Employee> specifications = Specification.where(null);
+
+        if (firstName != null) {
+            specifications = specifications.and(EmployeeSpecification.firstNameLike(firstName));
+        }
+
+        if (firstNameIn != null && !firstNameIn.isEmpty()) {
+            specifications = specifications.and(EmployeeSpecification.firstNameIn(firstNameIn));
+        }
+
+        if (lastNameLengthGreaterThan != null) {
+            specifications = specifications.and(EmployeeSpecification.lastNameLengthGreaterThan(lastNameLengthGreaterThan));
+        }
+
+        // Fetch the filtered employees based on the specifications
+        List<Employee> filteredEmployees = repository.findAll(specifications);
+
+        return ResponseEntity.ok(filteredEmployees);
+    }
+
+
 }
