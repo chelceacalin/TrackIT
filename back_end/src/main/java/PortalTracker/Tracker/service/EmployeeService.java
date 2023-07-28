@@ -1,6 +1,7 @@
 package PortalTracker.Tracker.service;
 
 import PortalTracker.Tracker.model.Employee;
+import PortalTracker.Tracker.model.ImageData;
 import PortalTracker.Tracker.service.impl.EmployeeServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,4 +25,9 @@ public interface EmployeeService {
 
     Employee getEmpByEmail(String email);
     UserDetailsService userDetailsService();
+
+
+
+
+    List<Employee> findAllEmployeesDynamicFilter(String firstName, String lastName, String email, String password);
 }

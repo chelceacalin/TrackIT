@@ -2,11 +2,15 @@ package PortalTracker.Tracker.controller;
 
 import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
+import PortalTracker.Tracker.model.ImageData;
 import PortalTracker.Tracker.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +56,7 @@ public class EmployeeController {
 
 
     @GetMapping("/employees")
-    public List<Employee> getEmpPages(@RequestParam(value = "pageNo",defaultValue = "1",required = false) int pageNo
+    public List<Employee> getEmpPages(@RequestParam(value = "pageNo",defaultValue = "0",required = false) int pageNo
             ,@RequestParam(value = "pageSize",defaultValue = "5",required = false) int pageSize){
         return service.findAllByPage(pageNo,pageSize).getContent();
     }
@@ -68,4 +72,21 @@ public class EmployeeController {
         return service.getEmpByEmail(email);
     }
 
+
+    @GetMapping("/allEmps")
+    public ResponseEntity<List<Employee>> getAllEmpsDynamicFilter(
+            @RequestParam(name = "firstName",required = false) String first,
+            @RequestParam(name = "lastName",required = false) String last,
+            @RequestParam(name = "email",required = false) String email,
+            @RequestParam(name = "password",required = false) String pass
+            ){
+        if(first==null&&last==null&&email==null&&pass==null) {
+
+            List<Employee> list=service.findAll();
+            return ResponseEntity.ok(list);
+        }
+
+        List<Employee> allEmployeesDynamicFilter = service.findAllEmployeesDynamicFilter(first, last, email, pass);
+        return new ResponseEntity<>(allEmployeesDynamicFilter, HttpStatus.OK);
+    }
 }

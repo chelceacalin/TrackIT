@@ -2,14 +2,13 @@ package PortalTracker.Tracker.service.impl;
 
 import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
+import PortalTracker.Tracker.model.ImageData;
 import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.EmployeeService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -89,6 +88,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                     throw new EntityNotFoundException("User with username "+username+" found");
             }
         };
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesDynamicFilter(String firstName, String lastName, String email, String password) {
+        return repository.findAllEmployeesDynamicFilter(firstName,lastName,email,password);
     }
 
 
