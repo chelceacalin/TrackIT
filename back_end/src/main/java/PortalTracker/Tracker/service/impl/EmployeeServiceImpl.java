@@ -1,5 +1,6 @@
 package PortalTracker.Tracker.service.impl;
 
+import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.EmployeeService;
@@ -38,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (emp.isPresent()) {
             return emp;
         } else
-            throw new Exception("Employee not found");
+            throw new EntityNotFoundException("Employee with id "+id+" not found");
     }
 
     @Override
@@ -55,13 +56,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee updateEmployee(int id, Employee employee) {
         Optional<Employee> optionalEmployee = repository.findEmployeeById(id);
         if (optionalEmployee.isPresent()) {
-            Employee existingEmployee = optionalEmployee.get();
-            existingEmployee.setFirstName(employee.getFirstName());
-            existingEmployee.setLastName(employee.getLastName());
-            return repository.save(existingEmployee);
+            return repository.save(employee);
         }
-
-        return new Employee();
+        return employee;
     }
 
     @Override
@@ -89,7 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 if (emp.isPresent())
                     return emp.get();
                 else
-                    throw new UsernameNotFoundException("User not found");
+                    throw new EntityNotFoundException("User with username "+username+" found");
             }
         };
     }

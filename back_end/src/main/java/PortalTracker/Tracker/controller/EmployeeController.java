@@ -1,5 +1,6 @@
 package PortalTracker.Tracker.controller;
 
+import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class EmployeeController {
     public Employee getEmployeeById(@PathVariable int id) throws Exception {
         Optional<Employee> eOptional=service.findById(id);
         if(eOptional.isPresent()) return eOptional.get();
-        else throw new Exception("Employee not found");
+        else throw new EntityNotFoundException("Employee with id "+id+" not found");
     }
 
 
