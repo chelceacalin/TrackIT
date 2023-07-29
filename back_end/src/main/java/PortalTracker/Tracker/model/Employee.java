@@ -29,7 +29,7 @@ public class Employee implements UserDetails {
     private String firstName;
     private String lastName;
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email")
     private String email;
 
 
