@@ -36,7 +36,7 @@ public class EmployeeRepositoryTest {
         // Arrange
         Employee employee = Employee
                 .builder()
-                .email("calin4@yahoo.com")
+                .email("calin5@yahoo.com")
                 .firstName("calin")
                 .lastName("calin")
                 .id(10)
