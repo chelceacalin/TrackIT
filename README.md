@@ -16,4 +16,7 @@ Functionalities so far:
   - Ability to search employees with suggestions based on their name or email address
   - Pagination to search through employees, with option to go to first or last page
   - Creating, Updating, Deleting, Reading
+  - Use of DTOs for Employees
+  - Dynamic query params
+  - Unit Testing
 </pre>
