@@ -1,7 +1,7 @@
 # Back End
 back_end\.idea
 **/.idea
-
+back_end/src/main/resources/application.yml
 # Front End
 trackerfront\node_modules
 node_modules

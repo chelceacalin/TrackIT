@@ -1,8 +1,8 @@
 spring:
   datasource:
-      url: jdbc:mysql://localhost:3306/calin
-      username: root
-      password: Mustarel2002
+    url: jdbc:mysql://localhost:3306/calin
+    username: root
+    password: Mustarel2002
   jpa:
     show-sql: true
     hibernate.ddl-auto: update
@@ -10,7 +10,13 @@ spring:
 
 
 
-token:
-    signing:
-        key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
 
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+
+
+  config:
+    activate:
+      on-profile: test
