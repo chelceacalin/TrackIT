@@ -3,6 +3,7 @@ package PortalTracker.Tracker.controller;
 import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
 import PortalTracker.Tracker.model.ImageData;
+import PortalTracker.Tracker.model.dto.EmployeeDTO;
 import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.EmployeeService;
 import PortalTracker.Tracker.specification.EmployeeSpecification;
@@ -64,11 +65,27 @@ public class EmployeeController {
 
 
     @GetMapping("/employees")
-    public List<Employee> getEmpPages(@RequestParam(value = "pageNo",defaultValue = "0",required = false) int pageNo
-            ,@RequestParam(value = "pageSize",defaultValue = "5",required = false) int pageSize){
+    public List<Employee> getEmpPages(
+            @RequestParam(value = "pageNo",defaultValue = "0",required = false) int pageNo,
+            @RequestParam(value = "pageSize",defaultValue = "5",required = false) int pageSize){
         return service.findAllByPage(pageNo,pageSize).getContent();
     }
 
+    @GetMapping("/employeesDTO")
+    public List<EmployeeDTO> getEmpPagesDTO(
+            @RequestParam(value = "pageNo",defaultValue = "0",required = false) int pageNo,
+            @RequestParam(value = "pageSize",defaultValue = "5",required = false) int pageSize){
+        return service.findAllByPage(pageNo,pageSize).getContent().stream().map((emp)->{
+            EmployeeDTO dto=new EmployeeDTO();
+            dto.setFirstName(emp.getFirstName());
+            dto.setLastName(emp.getLastName());
+            dto.setEmail(emp.getEmail());
+            dto.setPassword(emp.getPassword());
+            dto.setRole(emp.getRole());
+            dto.setUsername(emp.getUsername());
+            return  dto;
+        }).toList();
+    }
 
     @GetMapping("/employeesByMail")
     public List<Employee> searchEmployeeByEmail(@RequestParam("email") String email){
