@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecentURLDto {
-    private String path;
-    private LocalDateTime dateSearched;
+    String path;
+    LocalDateTime dateSearched;
 
 }

@@ -21,8 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeController {
 
-	private final EmployeeService employeeService;
-    private final EmployeeRepository employeeRepository;
+	final EmployeeService employeeService;
+	final EmployeeRepository employeeRepository;
 
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) {

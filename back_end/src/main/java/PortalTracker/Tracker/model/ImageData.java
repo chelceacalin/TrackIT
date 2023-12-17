@@ -15,23 +15,24 @@ import java.time.LocalDateTime;
 @Builder
 public class ImageData {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
+	String name;
 
-    private String type;
+	String type;
 
-    private LocalDateTime dateSearched;
-    public ImageData() {
-        this.dateSearched=LocalDateTime.now();
-    }
+	LocalDateTime dateSearched;
 
-    @Column(name = "imagedata", columnDefinition = "LONGBLOB")
-    private byte[] imageData;
+	public ImageData() {
+		this.dateSearched = LocalDateTime.now();
+	}
 
-    @OneToOne
-    @JoinColumn(name = "employee_id",referencedColumnName = "id")
-    @JsonIgnore
-    private Employee employee;
+	@Column(name = "imagedata", columnDefinition = "LONGBLOB")
+	byte[] imageData;
+
+	@OneToOne
+	@JoinColumn(name = "employee_id", referencedColumnName = "id")
+	@JsonIgnore
+	Employee employee;
 }

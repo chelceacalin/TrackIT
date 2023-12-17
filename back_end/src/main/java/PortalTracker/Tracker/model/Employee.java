@@ -21,20 +21,20 @@ public class Employee implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
     @Column(name = "first_Name",length = 80,nullable = false)
-    private String firstName;
-    private String lastName;
+    String firstName;
+    String lastName;
 
     @Column(name = "email")
-    private String email;
+    String email;
 
 
-    private String password;
+    String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role ;
+    Role role;
     public Employee(){
         this.role=Role.ADMIN;
     }

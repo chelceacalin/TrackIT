@@ -8,30 +8,19 @@ import PortalTracker.Tracker.model.Role;
 import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.AuthenticationService;
 import PortalTracker.Tracker.service.JwtService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private EmployeeRepository repository;
-    private PasswordEncoder passwordEncoder;
-    private JwtService jwtService;
-    private AuthenticationManager manager;
-    @Autowired
-    public AuthenticationServiceImpl(EmployeeRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager manager) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-        this.manager = manager;
-    }
+    final EmployeeRepository repository;
+    final PasswordEncoder passwordEncoder;
+    final JwtService jwtService;
+    final AuthenticationManager manager;
 
     @Override
     public JwtAuthenticationResponse signup(SignUpRequest request) {

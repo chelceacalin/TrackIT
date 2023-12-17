@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RecentUrlServiceImpl implements RecentUrlService {
-	private final RecentUrlRepository recentUrlRepository;
+	final RecentUrlRepository recentUrlRepository;
 
 	@Override
 	public RecentURL findUrlById(int id) {

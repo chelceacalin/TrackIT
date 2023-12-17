@@ -16,11 +16,12 @@ public class RecentURL {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int id;
 
-    private String path;
+    String path;
 
-    private LocalDateTime dateSearched;
+    LocalDateTime dateSearched;
+
     public RecentURL() {
         this.dateSearched=LocalDateTime.now();
     }

@@ -8,15 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class ImageController {
 
-	private final ImageDataService service;
+	final ImageDataService service;
 
 	@PostMapping("/images/{employeeId}")
 	public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file, @PathVariable int employeeId) throws Exception {
@@ -25,7 +23,7 @@ public class ImageController {
 	}
 
 	@GetMapping("/images/{fileName}")
-	public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws IOException {
+	public ResponseEntity<?> downloadImage(@PathVariable String fileName) {
 		byte[] imgData = service.downloadImage(fileName);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.valueOf("image/png"))

@@ -16,9 +16,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ImageDataServiceImpl implements ImageDataService {
 
-	private final ImageDataRepository repository;
-	private final ImageDataUtil util;
-	private final EmployeeService employeeService;
+	final ImageDataRepository repository;
+	final ImageDataUtil util;
+	final EmployeeService employeeService;
 
 	@Override
 	public String uploadImage(MultipartFile file, int empID) throws Exception {
@@ -31,7 +31,6 @@ public class ImageDataServiceImpl implements ImageDataService {
 					.imageData(util.compressImage(file.getBytes()))
 					.employee(e1.get())
 					.build());
-			System.out.println(e1.toString());
 			e1.get().setImageData(data);
 			employeeService.updateEmployee(e1.get().getId(), e1.get());
 		} else {
@@ -51,8 +50,7 @@ public class ImageDataServiceImpl implements ImageDataService {
 	public byte[] downloadImage(String fileName) {
 		Optional<ImageData> data = repository.findImageDataByName(fileName);
 		if (data.isPresent()) {
-			byte[] image = util.decompressImage(data.get().getImageData());
-			return image;
+			return util.decompressImage(data.get().getImageData());
 		}
 		return null;
 	}
@@ -60,7 +58,6 @@ public class ImageDataServiceImpl implements ImageDataService {
 	@Override
 	public byte[] findImageDataByEmployeeId(int id) {
 		ImageData data = repository.findImageDataByEmployeeId(id);
-		byte[] image = util.decompressImage(data.getImageData());
-		return image;
+		return util.decompressImage(data.getImageData());
 	}
 }

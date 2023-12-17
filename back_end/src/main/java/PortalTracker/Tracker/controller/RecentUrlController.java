@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class RecentUrlController {
-    private final RecentUrlService service;
+    final RecentUrlService service;
 
     @GetMapping("/recentlyOpenedURL/{recentURLID}")
     public RecentURL findById(@PathVariable(name = "recentURLID") int id){
