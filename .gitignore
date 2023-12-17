@@ -6,3 +6,4 @@ back_end/src/main/resources/application.yml
 trackerfront\node_modules
 node_modules
 **/node_modules
+target
