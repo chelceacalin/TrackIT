@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/calin
+    username: calin
+    password: calin
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: update
+  threads:
+    virtual:
+      enabled: true
+
+
+
+
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
