@@ -1,4 +1,4 @@
-package PortalTracker.Tracker.model.dto;
+package PortalTracker.Tracker.dto;
 
 import PortalTracker.Tracker.model.Role;
 import lombok.AllArgsConstructor;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDTO {
+    String username;
     String firstName;
     String lastName;
-    String email;
     String password;
+    String email;
     Role role;
-    String username;
 }

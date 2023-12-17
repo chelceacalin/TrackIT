@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecentUrlRepository extends JpaRepository<RecentURL, Integer> {
-        @Query("select e from RecentURL e where e.employee.id=:id")
-        Page<RecentURL> findRecentURLSByEmployeeId(int id, Pageable pageable);
+	@Query("select e from RecentURL e where e.employee.id=:id")
+	Page<RecentURL> findRecentURLSByEmployeeId(int id, Pageable pageable);
 }

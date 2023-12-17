@@ -11,27 +11,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee,Integer> , JpaSpecificationExecutor<Employee> {
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>, JpaSpecificationExecutor<Employee> {
 
-    Optional<Employee> findEmployeeById(int id);
+	Optional<Employee> findEmployeeById(int id);
 
-    Optional<Employee> findEmployeeByEmail(String email);
+	Optional<Employee> findEmployeeByEmail(String email);
 
-    @Query("select e from Employee e where e.email LIKE %?1% or e.firstName like %?1%")
-    <T> List<T> searchEmployeesByEmail(String email);
+	@Query("select e from Employee e where e.email LIKE %?1% or e.firstName like %?1%")
+	<T> List<T> searchEmployeesByEmail(String email);
 
 
-    @Query("select e from Employee e where " +
-            "(e.firstName=:firstName or :firstName is NULL ) " +
-            "and " +
-            "(e.lastName=:lastName or :lastName is null )" +
-            " and" +
-            "( e.email=:email or :email is NULL )" +
-            "and( e.password=:password or :password is null )")
-    List<Employee> findAllEmployeesDynamicFilter(
-            @Param("firstName") String firstName,
-            @Param("lastName") String lastName,
-            @Param("email") String email,
-            @Param("password") String password
-            );
+	@Query("select e from Employee e where " +
+			"(e.firstName=:firstName or :firstName is NULL ) " +
+			"and " +
+			"(e.lastName=:lastName or :lastName is null )" +
+			" and" +
+			"( e.email=:email or :email is NULL )" +
+			"and( e.password=:password or :password is null )")
+	List<Employee> findAllEmployeesDynamicFilter(
+			@Param("firstName") String firstName,
+			@Param("lastName") String lastName,
+			@Param("email") String email,
+			@Param("password") String password
+	);
 }

@@ -1,33 +1,34 @@
 package PortalTracker.Tracker.service;
 
 import PortalTracker.Tracker.model.Employee;
-import PortalTracker.Tracker.model.ImageData;
-import PortalTracker.Tracker.service.impl.EmployeeServiceImpl;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeService {
-    List<Employee> findAll();
-    Optional<Employee> findById(int id) throws Exception;
+	List<Employee> findAll();
 
-    void deleteEmployee(int id);
+    List<Employee> findAll(Specification<Employee> specification);
 
-    Employee createEmployee(Employee employee);
+	Optional<Employee> findById(int id) throws Exception;
 
-    Employee updateEmployee(int id,Employee employee);
+	void deleteEmployee(int id);
 
-    Page<Employee> findAllByPage(int pageNo,int pageSize);
+	Employee createEmployee(Employee employee);
 
-    <T> List<T> searchEmployeesByEmail(String email);
+	Employee updateEmployee(int id, Employee employee);
 
-    Employee getEmpByEmail(String email);
-    UserDetailsService userDetailsService();
+	Page<Employee> findAllByPage(int pageNo, int pageSize);
+
+	<T> List<T> searchEmployeesByEmail(String email);
+
+	Employee getEmpByEmail(String email);
+
+	UserDetailsService userDetailsService();
 
 
-
-
-    List<Employee> findAllEmployeesDynamicFilter(String firstName, String lastName, String email, String password);
+	List<Employee> findAllEmployeesDynamicFilter(String firstName, String lastName, String email, String password);
 }

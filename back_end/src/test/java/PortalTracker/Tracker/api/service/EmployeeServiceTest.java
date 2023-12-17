@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
 public class EmployeeServiceTest {
 
 	@Mock
-	EmployeeRepository repository;
+	EmployeeRepository employeeRepository;
 
 	@InjectMocks
-	EmployeeServiceImpl service;
+	EmployeeServiceImpl employeeService;
 
 	@Test
 	public void EmployeeService_Create_Employee_ReturnsEmployeeDTO() {
@@ -38,8 +38,8 @@ public class EmployeeServiceTest {
 				.build();
 
 
-		when(repository.save(Mockito.any(Employee.class))).thenReturn(employee2);
-		Employee em = service.createEmployee(employee2);
+		when(employeeRepository.save(Mockito.any(Employee.class))).thenReturn(employee2);
+		Employee em = employeeService.createEmployee(employee2);
 
 		Assertions.assertNotNull(em);
 

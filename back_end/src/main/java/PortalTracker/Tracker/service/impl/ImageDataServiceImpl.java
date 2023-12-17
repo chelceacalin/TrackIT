@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ImageDataServiceImpl implements ImageDataService {
 
-	final ImageDataRepository repository;
+	final ImageDataRepository imageDataRepository;
 	final ImageDataUtil util;
 	final EmployeeService employeeService;
 
@@ -25,7 +25,7 @@ public class ImageDataServiceImpl implements ImageDataService {
 		Optional<Employee> e1 = employeeService.findById(empID);
 		ImageData data;
 		if (e1.isPresent()) {
-			data = repository.save(ImageData.builder()
+			data = imageDataRepository.save(ImageData.builder()
 					.name(file.getOriginalFilename())
 					.type(file.getContentType())
 					.imageData(util.compressImage(file.getBytes()))
@@ -34,7 +34,7 @@ public class ImageDataServiceImpl implements ImageDataService {
 			e1.get().setImageData(data);
 			employeeService.updateEmployee(e1.get().getId(), e1.get());
 		} else {
-			data = repository.save(ImageData.builder()
+			data = imageDataRepository.save(ImageData.builder()
 					.name(file.getOriginalFilename())
 					.type(file.getContentType())
 					.imageData(util.compressImage(file.getBytes()))
@@ -48,7 +48,7 @@ public class ImageDataServiceImpl implements ImageDataService {
 	}
 
 	public byte[] downloadImage(String fileName) {
-		Optional<ImageData> data = repository.findImageDataByName(fileName);
+		Optional<ImageData> data = imageDataRepository.findImageDataByName(fileName);
 		if (data.isPresent()) {
 			return util.decompressImage(data.get().getImageData());
 		}
@@ -57,7 +57,7 @@ public class ImageDataServiceImpl implements ImageDataService {
 
 	@Override
 	public byte[] findImageDataByEmployeeId(int id) {
-		ImageData data = repository.findImageDataByEmployeeId(id);
+		ImageData data = imageDataRepository.findImageDataByEmployeeId(id);
 		return util.decompressImage(data.getImageData());
 	}
 }

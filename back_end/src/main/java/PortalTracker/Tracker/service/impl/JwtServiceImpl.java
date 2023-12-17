@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements JwtService {
+
 	@org.springframework.beans.factory.annotation.Value("${token.signing.key}")
 	String jwtSigningKey;
 

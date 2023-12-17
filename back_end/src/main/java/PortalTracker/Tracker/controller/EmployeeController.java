@@ -1,12 +1,12 @@
 package PortalTracker.Tracker.controller;
 
+import PortalTracker.Tracker.dto.EmployeeDTO;
 import PortalTracker.Tracker.exception.EntityNotFoundException;
 import PortalTracker.Tracker.model.Employee;
-import PortalTracker.Tracker.model.dto.EmployeeDTO;
-import PortalTracker.Tracker.repository.EmployeeRepository;
 import PortalTracker.Tracker.service.EmployeeService;
 import PortalTracker.Tracker.specification.EmployeeSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,6 @@ import java.util.Optional;
 public class EmployeeController {
 
 	final EmployeeService employeeService;
-	final EmployeeRepository employeeRepository;
 
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) {
@@ -65,14 +64,9 @@ public class EmployeeController {
 			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "5", required = false) int pageSize) {
 		return employeeService.findAllByPage(pageNo, pageSize).getContent().stream().map((emp) -> {
-			EmployeeDTO dto = new EmployeeDTO();
-			dto.setFirstName(emp.getFirstName());
-			dto.setLastName(emp.getLastName());
-			dto.setEmail(emp.getEmail());
-			dto.setPassword(emp.getPassword());
-			dto.setRole(emp.getRole());
-			dto.setUsername(emp.getUsername());
-			return dto;
+			EmployeeDTO employeeDto = new EmployeeDTO();
+			BeanUtils.copyProperties(emp, employeeDto);
+			return employeeDto;
 		}).toList();
 	}
 
@@ -105,13 +99,11 @@ public class EmployeeController {
 	}
 
 
-	// Dyanmic Filterning Specification
 	@GetMapping("/empsFilter")
 	public ResponseEntity<List<Employee>> filterEmployees(@RequestParam(required = false) String firstName,
 														  @RequestParam(required = false) List<String> firstNameIn,
 														  @RequestParam(required = false) Integer lastNameLengthGreaterThan) {
 
-		// Build the specifications based on the provided query parameters
 		Specification<Employee> specifications = Specification.where(null);
 
 		if (firstName != null) {
@@ -126,9 +118,7 @@ public class EmployeeController {
 			specifications = specifications.and(EmployeeSpecification.lastNameLengthGreaterThan(lastNameLengthGreaterThan));
 		}
 
-		// Fetch the filtered employees based on the specifications
-		List<Employee> filteredEmployees = employeeRepository.findAll(specifications);
-
+		List<Employee> filteredEmployees = employeeService.findAll(specifications);
 		return ResponseEntity.ok(filteredEmployees);
 	}
 

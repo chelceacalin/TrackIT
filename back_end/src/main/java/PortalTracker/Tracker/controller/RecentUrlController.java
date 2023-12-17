@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class RecentUrlController {
-    final RecentUrlService service;
+
+    final RecentUrlService recentUrlService;
 
     @GetMapping("/recentlyOpenedURL/{recentURLID}")
     public RecentURL findById(@PathVariable(name = "recentURLID") int id){
-        return service.findUrlById(id);
+        return recentUrlService.findUrlById(id);
     }
 
 
     @PostMapping("/recentlyOpenedURL")
     public RecentURL createRecentURL(@RequestBody RecentURL recentURL){
-        return service.createRecentURL(recentURL);
+        return recentUrlService.createRecentURL(recentURL);
     }
 
     @GetMapping("/recentlyOpenedURL/{employeeID}/recentURLs")
@@ -31,7 +32,7 @@ public class RecentUrlController {
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "6") int pageSize) {
 
-        Page<RecentURL> recentURLs = service.findURLSByEmpId(employeeID, pageNo, pageSize);
+        Page<RecentURL> recentURLs = recentUrlService.findURLSByEmpId(employeeID, pageNo, pageSize);
 
         return recentURLs.map(recentURL ->
                 new RecentURLDto(recentURL.getPath(), recentURL.getDateSearched()));

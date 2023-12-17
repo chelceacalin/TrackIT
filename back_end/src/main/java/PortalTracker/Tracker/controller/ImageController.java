@@ -14,17 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class ImageController {
 
-	final ImageDataService service;
+	final ImageDataService imageDataService;
 
 	@PostMapping("/images/{employeeId}")
 	public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file, @PathVariable int employeeId) throws Exception {
-		String upload = service.uploadImage(file, employeeId);
+		String upload = imageDataService.uploadImage(file, employeeId);
 		return ResponseEntity.ok(upload);
 	}
 
 	@GetMapping("/images/{fileName}")
 	public ResponseEntity<?> downloadImage(@PathVariable String fileName) {
-		byte[] imgData = service.downloadImage(fileName);
+		byte[] imgData = imageDataService.downloadImage(fileName);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.valueOf("image/png"))
 				.body(imgData);
@@ -33,7 +33,7 @@ public class ImageController {
 
 	@GetMapping("/imagesByEmpId/{id}")
 	public ResponseEntity<?> getImageDataByEmpID(@PathVariable(name = "id") int employeeID) {
-		byte[] imgData = service.findImageDataByEmployeeId(employeeID);
+		byte[] imgData = imageDataService.findImageDataByEmployeeId(employeeID);
 		return ResponseEntity.status(HttpStatus.OK)
 				.contentType(MediaType.valueOf("image/png"))
 				.body(imgData);

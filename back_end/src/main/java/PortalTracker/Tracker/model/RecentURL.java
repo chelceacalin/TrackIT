@@ -14,20 +14,20 @@ import java.time.LocalDateTime;
 @Setter
 public class RecentURL {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int id;
 
-    String path;
+	String path;
 
-    LocalDateTime dateSearched;
+	LocalDateTime dateSearched;
 
-    public RecentURL() {
-        this.dateSearched=LocalDateTime.now();
-    }
+	public RecentURL() {
+		this.dateSearched = LocalDateTime.now();
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "fk_employee_id",referencedColumnName = "id")
-    Employee employee;
+	@ManyToOne
+	@JoinColumn(name = "fk_employee_id", referencedColumnName = "id")
+	Employee employee;
 
 }

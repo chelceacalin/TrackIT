@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface ImageDataRepository extends JpaRepository<ImageData,Long> {
+public interface ImageDataRepository extends JpaRepository<ImageData, Long> {
 
-    Optional<ImageData> findImageDataByName(String filename);
+	Optional<ImageData> findImageDataByName(String filename);
 
-    @Query("select imgd from ImageData imgd where imgd.employee.id=:id")
-    ImageData findImageDataByEmployeeId(int id);
+	@Query("select imgd from ImageData imgd where imgd.employee.id=:id")
+	ImageData findImageDataByEmployeeId(int id);
 
 }
