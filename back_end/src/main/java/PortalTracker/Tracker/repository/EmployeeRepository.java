@@ -1,7 +1,6 @@
 package PortalTracker.Tracker.repository;
 
 import PortalTracker.Tracker.model.Employee;
-import PortalTracker.Tracker.model.ImageData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +21,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> , Jp
     <T> List<T> searchEmployeesByEmail(String email);
 
 
-    @Query(nativeQuery = false,value="select e from Employee e where " +
+    @Query("select e from Employee e where " +
             "(e.firstName=:firstName or :firstName is NULL ) " +
             "and " +
             "(e.lastName=:lastName or :lastName is null )" +

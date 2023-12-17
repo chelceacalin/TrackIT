@@ -1,6 +1,5 @@
 package PortalTracker.Tracker.exception;
 
-import io.swagger.models.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,7 +18,6 @@ public class GlobalExceptionHandler {
         errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
         errorObject.setMessage(ex.getMessage());
         errorObject.setTimestamp(new Date());
-
-        return new ResponseEntity<ErrorObject>(errorObject,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
 }
