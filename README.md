@@ -1,6 +1,7 @@
 # Management System For Employees
 
-![image](https://github.com/chelceacalin/TrackIT/assets/76866499/d390f624-2b9e-4cd9-86c9-26a15028d9bd)
+![image](https://github.com/chelceacalin/TrackIT/assets/76866499/f3edd6d5-85ec-4e9b-91d6-03ddef40b0f0)
+
 
 ![ss2](https://github.com/chelceacalin/Tracking_App/assets/76866499/c057f09d-df6f-4e39-8174-c0081392a17f)
 
