@@ -37,15 +37,14 @@ function UpdateEmployee() {
 
     try {
       await updateEmployeeById(employee.id, updatedEmployee);
-      navigate("/"); // Redirect to home page after successful update
+      navigate("/");
     } catch (error) {
       console.error("Error updating employee:", error);
-      // Handle error updating employee
     }
   };
 
   return (
-    <div className="flex max-w-2xl shadow border-b mx-auto">
+    <div className="flex max-w-xl shadow border-b mx-auto mt-20">
       <div className="px-8 py-8">
         <div className="font-thin text-2xl tracking-wider">
           <h1>Update employee</h1>
@@ -97,7 +96,7 @@ function UpdateEmployee() {
         </form>
 
         <footer className="align-baseline bg-gray-100 text-center py-2 text-gray-600 text-sm font-normal">
-          <p className="text-gray-600 text-sm font-normal">
+          <p className="text-gray-600 text-sm font-normal hover:bg-slate-200">
             <a href="" onClick={() => navigate("/employeeList")}>
               Back To Employee List
             </a>

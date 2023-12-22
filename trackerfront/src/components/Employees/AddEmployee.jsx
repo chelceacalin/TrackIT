@@ -32,7 +32,7 @@ function AddEmployee() {
   };
 
   return (
-    <div className="flex max-w-2xl shadow border-b mx-auto">
+    <div className="flex max-w-xl border-b m-auto mt-20 shadow-lg">
       <div className="px-8 py-8">
         <div className="font-thin text-2xl tracking-wider">
           <h1>Add new employee</h1>
@@ -97,13 +97,15 @@ function AddEmployee() {
             >
               Save
             </button>
-            <button className="m-auto bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded w-24">
+            <button className="m-auto bg-red-300 hover:bg-red-500 text-white font-bold py-2 px-4 rounded w-24"
+            onClick={(e)=>{e.preventDefault(); clearData();}}
+            >
               Clear
             </button>
           </div>
         </form>
         <footer className="align-baseline bg-gray-100 text-center py-2 text-gray-600 text-sm font-normal">
-          <p className="text-gray-600 text-sm font-normal">
+          <p className="text-gray-600 text-sm font-normal hover:bg-slate-200">
             <a onClick={() => navigate("/employeeList")}>
               Back To Main Page
             </a>

@@ -10,7 +10,7 @@ import EmployeeCard from "../Employees/EmployeeCard";
 import { RouteTrackerContext } from "../RouteProvider/RouteTracker";
 import HomeNavbar from "./HomeNavbar";
 import HomeRecentlyOpenedUrls from "./HomeRecentlyOpenedUrls";
-
+import { pieArcClasses, PieChart } from "@mui/x-charts";
 export default function Home() {
   const { visitedRoutes } = useContext(RouteTrackerContext);
   let [recentlyOpenedUrls, setRecentlyOpenedUrls] = useState([]);
@@ -21,6 +21,8 @@ export default function Home() {
   // Employees left down corner
   const [emps, setEmployees] = useState([]);
   const currentEmployees = emps.slice(0, 4);
+  let uniqueData;
+  const [actualData, setActualData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +47,31 @@ export default function Home() {
         }
       );
 
+     
+      uniqueData = Array.from(
+        new Set(response.data.content.map((item) => item.path))
+      );
+
+      String.prototype.hashCode = function() {
+        var hash = 0,
+          i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+          chr = this.charCodeAt(i);
+          hash = ((hash << 5) - hash) + chr;
+          hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+      }
+
+      setActualData(
+        uniqueData.map((elem, index) => ({
+          id: index,
+          value: elem.hashCode(),
+          label: "Series " + String.fromCharCode(65 + index),
+        }))
+      );
+      console.log(actualData);
       setRecentlyOpenedUrls(response.data.content.slice(0, 6));
     } catch (error) {
       console.error(error);
@@ -92,24 +119,15 @@ export default function Home() {
         <div className="bg-white p-4">
           {/* Upper Left */}
           <div className="bg-blue-500 p-4 rounded-lg h-full flex items-center justify-center">
-            <div className="bg-gray-200 p-4 rounded-lg">
-              <div className="relative w-16 h-16 mx-auto">
-                <HiChartPie className="text-gray-500 w-full h-full absolute" />
-                <div className="absolute inset-0">
-                  <div
-                    className="pie-chart"
-                    style={{
-                      transform: `rotate(${Math.floor(
-                        Math.random() * 360
-                      )}deg)`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-              <p className="text-gray-500 text-sm text-center mt-2">
-                Pie Chart
-              </p>
-            </div>
+            <PieChart
+              series={[
+                {
+                  data: actualData,
+                },
+              ]}
+              width={400}
+              height={200}
+            />
           </div>
         </div>
 

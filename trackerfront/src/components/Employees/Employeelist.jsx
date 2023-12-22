@@ -1,10 +1,13 @@
-import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {deleteEmployeeById, getEmployeeFunc} from '../../services/EmployeeService';
-import HomeNavbar from '../Home/HomeNavbar';
-import Employee from './Employee';
-import Pagination from './Pagination';
-import SearchBar from './SearchBar';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  deleteEmployeeById,
+  getEmployeeFunc,
+} from "../../services/EmployeeService";
+import HomeNavbar from "../Home/HomeNavbar";
+import Employee from "./Employee";
+import Pagination from "./Pagination";
+import SearchBar from "./SearchBar";
 
 function EmployeeList() {
   const navigate = useNavigate();
@@ -16,6 +19,7 @@ function EmployeeList() {
   const lastPostIndex = currentPage * employeesPerPage;
   const firstPostIndex = lastPostIndex - employeesPerPage;
   const currentEmployees = employees.slice(firstPostIndex, lastPostIndex);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +33,12 @@ function EmployeeList() {
       setLoading(false);
     };
     fetchData();
+    setUserData();
   }, []);
+
+  const setUserData = () => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  };
 
   const delEmployee = (e) => {
     try {
@@ -41,24 +50,25 @@ function EmployeeList() {
   };
 
   const updateEmployeeFromList = (id) => {
-    const trimmedId = String(id).replace('#', ''); // Convert id to string and remove '#'
+    const trimmedId = String(id).replace("#", ""); 
     window.location.href = `/updateEmployee/${trimmedId}`;
   };
-  
 
   return (
     <>
-    <HomeNavbar/>
-      <div className="justify-between md:flex-row"> 
+      <HomeNavbar firstName={user.firstName} lastName={user.lastName} />
+      <div className="justify-between md:flex-row">
         <button
           onClick={() => {
-            navigate('/addEmployee');
+            navigate("/addEmployee");
           }}
           className="mt-5 ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Add Employee
         </button>
-        <div className="flex flex-grow align-middle justify-center"> {/* Search bar container */}
+        <div className="flex flex-grow align-middle justify-center">
+          {" "}
+          {/* Search bar container */}
           <SearchBar className="align-middle" />
         </div>
       </div>
@@ -66,7 +76,7 @@ function EmployeeList() {
       <div className="flex shadow border-b mt-5">
         <table className="min-w-full">
           <thead className="bg-gray-50">
-            <tr className=''>
+            <tr className="">
               <th className="text-center font-medium text-gray-500 uppercase tracking-wider py-3 px-6">
                 First Name
               </th>
