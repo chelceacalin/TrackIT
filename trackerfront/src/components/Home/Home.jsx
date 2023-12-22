@@ -68,7 +68,7 @@ export default function Home() {
         uniqueData.map((elem, index) => ({
           id: index,
           value: elem.hashCode(),
-          label: "Series " + String.fromCharCode(65 + index),
+          label: "Series " + elem,
         }))
       );
       console.log(actualData);
@@ -125,7 +125,7 @@ export default function Home() {
                   data: actualData,
                 },
               ]}
-              width={400}
+              width={550}
               height={200}
             />
           </div>
