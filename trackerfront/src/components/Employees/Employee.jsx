@@ -1,11 +1,9 @@
-import React from 'react';
-
 export default function Employee({ employee, delEmployee, updateEmployeeFromList }) {
   const deleteEmployee = () => {
     delEmployee(employee.id);
   };
 
-  const updateEmployee = (e) => {
+  const updateEmployee = () => {
     updateEmployeeFromList(employee.id);
   };
 

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { saveRecentURL } from '../../services/RecentlyOpenedUrlService';
 
@@ -25,9 +25,8 @@ export const RouteTrackerProvider = ({ children }) => {
       for (let route of visitedRoutes) {
         await saveRecentURL(route);
       }
-      console.log('Visited routes saved to the database');
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

@@ -1,12 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
 export default function HomeRecentlyOpenedUrls({ recentlyOpenedUrl }) {
-  const navigate = useNavigate();
 
   const handleClick = () => {
-    const extractedPath = recentlyOpenedUrl.path.split('/').pop();
-    window.location.href =extractedPath;
+      window.location.href =recentlyOpenedUrl.path.split('/').pop();
   };
 
 

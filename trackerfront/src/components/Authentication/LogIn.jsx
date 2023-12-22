@@ -1,17 +1,12 @@
-import React from "react";
-import { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
-import {SingIn} from '../../services/AuthenticationService';
-import {getEmployeeByEMAIL} from '../../services/EmployeeService';
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { SingIn } from '../../services/AuthenticationService';
+import { getEmployeeByEMAIL } from '../../services/EmployeeService';
 
 export default function LogIn() {
-  const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let handleSubmitSignIn = () => {
-    console.log(email, password);
-  
     let body = {
       email: email,
       password: password
@@ -19,25 +14,22 @@ export default function LogIn() {
   
     getEmployeeByEMAIL(email)
       .then(emp => {
-        console.log("employee", emp.data);
         if (emp.data) {
           SingIn(body)
             .then(res => {
-              console.log(res);
               localStorage.setItem("token", res.data.token);
               localStorage.setItem("user", JSON.stringify(emp.data));
               window.location.href = "/home";
             })
             .catch(err => {
-              console.log(err);
+             throw new Error(err);
             });
         } else {
-          console.log("Employee not found");
-          // Handle case when employee is not found
+          console.error("Employee not found");
         }
       })
       .catch(err => {
-        console.log(err);
+        throw new Error(err);
       });
   };
   

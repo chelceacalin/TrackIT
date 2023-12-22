@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getEmployeeFunc,deleteEmployeeById } from '../../services/EmployeeService';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {deleteEmployeeById, getEmployeeFunc} from '../../services/EmployeeService';
+import HomeNavbar from '../Home/HomeNavbar';
 import Employee from './Employee';
 import Pagination from './Pagination';
 import SearchBar from './SearchBar';
-import HomeNavbar from '../Home/HomeNavbar';
+
 function EmployeeList() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -23,27 +24,25 @@ function EmployeeList() {
         const response = await getEmployeeFunc();
         setEmployees(response.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
       setLoading(false);
     };
     fetchData();
-    console.log(employees);
   }, []);
 
   const delEmployee = (e) => {
     try {
       deleteEmployeeById(e);
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.error(err);
     }
     window.location.reload();
   };
 
   const updateEmployeeFromList = (id) => {
     const trimmedId = String(id).replace('#', ''); // Convert id to string and remove '#'
-  const url = `/updateEmployee/${trimmedId}`;
-  window.location.href = url;
+    window.location.href = `/updateEmployee/${trimmedId}`;
   };
   
 
@@ -52,7 +51,7 @@ function EmployeeList() {
     <HomeNavbar/>
       <div className="justify-between md:flex-row"> 
         <button
-          onClick={(e) => {
+          onClick={() => {
             navigate('/addEmployee');
           }}
           className="mt-5 ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

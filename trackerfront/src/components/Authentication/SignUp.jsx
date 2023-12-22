@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import { Button } from "@material-tailwind/react";
-import { SignUpFct,SingIn } from '../../services/AuthenticationService';
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { SignUpFct, SingIn } from '../../services/AuthenticationService';
 import { getEmployeeByEMAIL } from "../../services/EmployeeService";
 export default function SignUp() {
-  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,26 +27,23 @@ export default function SignUp() {
             if (emp.data) {
               SingIn(loginData)
                 .then((res) => {
-                  console.log(res.data);
                   localStorage.setItem("token", res.data.token);
                   localStorage.setItem("user", JSON.stringify(emp.data));
-                  console.log(emp.data);
                   window.location.href=  "/home";
                 })
                 .catch((err) => {
-                  console.log(err);
+                 console.error(err);
                 });
             } else {
-              console.log("Employee not found");
               alert("Employee not found");
             }
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 

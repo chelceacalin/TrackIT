@@ -12,11 +12,10 @@ export const saveEmployeeFunct = (employee) => {
       },
     })
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -33,7 +32,7 @@ export const getEmployeeFunc = () => {
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -49,15 +48,11 @@ export const deleteEmployeeById = (id) => {
       },
     })
     .then((response) => {
-      console.log(response.data);
     })
     .catch((error) => {
-      // Handle error
       console.error(error);
     });
 };
-
-
 
 export const updateEmployeeById = (id, employee) => {
   const token = localStorage.getItem("token");
@@ -87,7 +82,7 @@ export const getEmployeeByid = (id) => {
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -104,7 +99,7 @@ export const getEmployeeByEMAIL = (email) => {
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
 
@@ -122,6 +117,6 @@ export const getEmployeesByEmail = (email) => {
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };

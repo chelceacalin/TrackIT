@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { saveEmployeeFunct } from "../../services/EmployeeService";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { saveEmployeeFunct } from "../../services/EmployeeService";
 
 function AddEmployee() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ function AddEmployee() {
     setEmployee({ ...employee, [e.target.name]: value });
   };
 
-  let clearData = (e) => {
+  let clearData = () => {
     setEmployee({
       id: "",
       firstName: "",
@@ -105,7 +104,7 @@ function AddEmployee() {
         </form>
         <footer className="align-baseline bg-gray-100 text-center py-2 text-gray-600 text-sm font-normal">
           <p className="text-gray-600 text-sm font-normal">
-            <a onClick={(e) => navigate("/employeeList")}>
+            <a onClick={() => navigate("/employeeList")}>
               Back To Main Page
             </a>
           </p>

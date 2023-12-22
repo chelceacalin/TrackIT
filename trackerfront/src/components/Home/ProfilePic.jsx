@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate,useParams } from 'react-router-dom';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 const ProfilePic = () => {
-    const { id } = useParams();
+  const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
-  let navigate=useNavigate();
+  let navigate = useNavigate();
   const handleImageDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
@@ -19,15 +19,14 @@ const ProfilePic = () => {
   const handleImageUpload = async () => {
     if (selectedImage) {
       const formData = new FormData();
-      formData.append('image', selectedImage);
+      formData.append("image", selectedImage);
 
       try {
         const response = await axios.post(
           `http://localhost:8080/api/auth/images/${id}`,
           formData
         );
-        navigate('/home')
-        console.log(response.data); // Do something with the response if needed
+        navigate("/home");
       } catch (error) {
         console.error(error);
       }
@@ -52,7 +51,12 @@ const ProfilePic = () => {
           <div className="text-gray-500">Drop or Browse to select an image</div>
         )}
       </div>
-      <input type="file" accept="image/*" onChange={handleImageBrowse} className="mb-4" />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageBrowse}
+        className="mb-4"
+      />
       <button
         onClick={handleImageUpload}
         className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"

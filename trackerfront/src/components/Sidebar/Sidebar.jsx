@@ -1,5 +1,4 @@
-import React from 'react';
-import { HiChartPie, HiUser, HiInbox, HiLogout } from 'react-icons/hi';
+import { HiChartPie, HiInbox, HiLogout, HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {

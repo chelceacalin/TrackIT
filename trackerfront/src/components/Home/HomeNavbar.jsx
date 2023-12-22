@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function HomeNavbar({ firstName, lastName, id }) {
   const navigate = useNavigate();
   const [userAvatar, setUserAvatar] = useState('');
-  let [storedUser,setStordUser] = useState({})
+  let [storedUser] = useState({})
   storedUser = JSON.parse(localStorage.getItem('user'));
 
   const fetchUserAvatar = async () => {

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { getEmployeesByEmail } from '../../services/EmployeeService';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getEmployeesByEmail } from "../../services/EmployeeService";
 export default function SearchBar() {
-  
-  const navigate=useNavigate();
-  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
   const [searchData, setSearchData] = useState([]);
 
   const handleChange = (e) => {
@@ -12,14 +11,13 @@ export default function SearchBar() {
   };
 
   useEffect(() => {
-    if (search !== '') {
+    if (search !== "") {
       getEmployeesByEmail(search)
         .then((res) => {
-            console.log(res.data);
           setSearchData(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
   }, [search]);
@@ -52,11 +50,16 @@ export default function SearchBar() {
         </button>
       </span>
       <span className="mt-2">
-        {searchData.slice(0,3).map((data, index) => {
+        {searchData.slice(0, 3).map((data, index) => {
           return (
-            <a  target="_blank" key={index} className="block" onClick={()=>{
-                navigate("/updateEmployee/"+data.id);
-            }}>
+            <a
+              target="_blank"
+              key={index}
+              className="block"
+              onClick={() => {
+                navigate("/updateEmployee/" + data.id);
+              }}
+            >
               {data.email}
             </a>
           );

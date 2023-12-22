@@ -1,15 +1,14 @@
-import React from 'react';
-import Employeelist from './components/Employees/Employeelist';
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+import LogIn from './components/Authentication/LogIn';
+import SignUp from './components/Authentication/SignUp';
 import AddEmployee from './components/Employees/AddEmployee';
+import Employeelist from './components/Employees/Employeelist';
 import UpdateEmployee from './components/Employees/UpdateEmployee';
 import Home from './components/Home/Home';
-import Inbox from './components/Inbox/Inbox';
-import Sidebar from './components/Sidebar/Sidebar';
-import { RouteTrackerProvider } from './components/RouteProvider/RouteTracker';
-import LogIn from './components/Authentication/LogIn';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import SignUp from './components/Authentication/SignUp';
 import ProfilePic from './components/Home/ProfilePic';
+import Inbox from './components/Inbox/Inbox';
+import { RouteTrackerProvider } from './components/RouteProvider/RouteTracker';
+import Sidebar from './components/Sidebar/Sidebar';
 function App() {
   return (
     <Router>
@@ -21,7 +20,6 @@ function App() {
 }
 function MainContent() {
   const location = useLocation();
-
   const isLoginOrSignUp = location.pathname === '/' || location.pathname === '/signUp';
 
   return (
@@ -42,6 +40,5 @@ function MainContent() {
     </div>
   );
 }
-
 
 export default App;

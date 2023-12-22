@@ -17,18 +17,17 @@ export const saveRecentURL = (URL) => {
     }
   };
 
-  const token = localStorage.getItem('token'); // Retrieve the authentication token from localStorage
+  const token = localStorage.getItem('token'); 
 
   return axios.post(RECENT_URL_BASE_URL, object, {
     headers: {
-      Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      Authorization: `Bearer ${token}`, 
     },
   })
     .then(res => {
-      console.log(res);
       return res;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
