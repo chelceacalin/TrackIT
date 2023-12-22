@@ -2,6 +2,7 @@ package PortalTracker.Tracker.service.impl;
 
 import PortalTracker.Tracker.service.JwtService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -9,7 +10,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,19 +39,22 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	<T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-		final Claims claims = extractAllClaims(token);
+		final Claims claims = (Claims) extractAllClaims(token);
 		return claimsResolvers.apply(claims);
 	}
 
 	String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+		Date now = new Date();
+		Date expirationDate = new Date(now.getTime() + 86400000);
 		return Jwts.builder()
 				.setClaims(extraClaims)
 				.setSubject(userDetails.getUsername())
-				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(Long.MAX_VALUE))
+				.setIssuedAt(now)
+				.setExpiration(expirationDate)
 				.signWith(SignatureAlgorithm.HS256, getSigningKey())
 				.compact();
 	}
+
 
 	boolean isTokenExpired(String token) {
 		return extractExpiration(token).before(new Date());
@@ -60,11 +64,11 @@ public class JwtServiceImpl implements JwtService {
 		return extractClaim(token, Claims::getExpiration);
 	}
 
-	Claims extractAllClaims(String token) {
-		return Jwts.parser().setSigningKey(getSigningKey()).parseClaimsJws(token).getBody();
+	private Jws<Claims> extractAllClaims(String token) {
+		return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token);
 	}
 
-	Key getSigningKey() {
+	SecretKey getSigningKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}

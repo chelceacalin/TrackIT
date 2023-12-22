@@ -28,7 +28,7 @@ public class ImageData {
 		this.dateSearched = LocalDateTime.now();
 	}
 
-	@Column(name = "imagedata", columnDefinition = "LONGBLOB")
+	@Column(name = "imagedata")
 	byte[] imageData;
 
 	@OneToOne

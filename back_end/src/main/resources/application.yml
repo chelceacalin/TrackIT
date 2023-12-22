@@ -5,10 +5,11 @@ spring:
     password: calin
   jpa:
     show-sql: true
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
   threads:
     virtual:
       enabled: true
+
 
 
 

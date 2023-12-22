@@ -22,7 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    final EmployeeService employeeService;
+	final EmployeeService employeeService;
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http.csrf(AbstractHttpConfigurer::disable)
@@ -39,32 +39,31 @@ public class SecurityConfiguration {
 //        return http.build();
 //    }
 
-    @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeRequests(request -> request.anyRequest().permitAll())
-            .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .cors(Customizer.withDefaults());
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(req->req.anyRequest().permitAll())
+				.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.cors(Customizer.withDefaults());
+		return http.build();
+	}
 
-    return http.build();
-}
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(employeeService.userDetailsService());
+		authProvider.setPasswordEncoder(passwordEncoder());
+		return authProvider;
+	}
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(employeeService.userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-            throws Exception {
-        return config.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+			throws Exception {
+		return config.getAuthenticationManager();
+	}
 }

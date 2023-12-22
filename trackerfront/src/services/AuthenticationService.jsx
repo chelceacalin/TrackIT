@@ -18,10 +18,11 @@ export const SignUpFct = (employee) => {
   return axios
     .post(BASE_AUTH_URL + "/signup", employee)
     .then((res) => {
+      localStorage.setItem("token",res.data.token);
       return res;
     })
     .catch((err) => {
-      console.error(err);
+      console.error("err auth " +err);
       alert("Login failed");
     });
 };

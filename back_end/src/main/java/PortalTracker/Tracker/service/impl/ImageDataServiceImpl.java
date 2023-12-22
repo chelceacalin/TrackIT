@@ -49,15 +49,12 @@ public class ImageDataServiceImpl implements ImageDataService {
 
 	public byte[] downloadImage(String fileName) {
 		Optional<ImageData> data = imageDataRepository.findImageDataByName(fileName);
-		if (data.isPresent()) {
-			return util.decompressImage(data.get().getImageData());
-		}
-		return null;
+		return data.map(imageData -> util.decompressImage(imageData.getImageData())).orElse(null);
 	}
 
 	@Override
 	public byte[] findImageDataByEmployeeId(int id) {
 		ImageData data = imageDataRepository.findImageDataByEmployeeId(id);
-		return util.decompressImage(data.getImageData());
+		return util.decompressImage(data.getImageData() != null ? data.getImageData() : new byte[]{});
 	}
 }
